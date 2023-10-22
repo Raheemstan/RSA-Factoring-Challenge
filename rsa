@@ -21,7 +21,7 @@ calculate_factor() {
         num2=$temp
     fi
 
-    echo "$1$num1*$num2"
+    echo "$1=$num1*$num2"
 }
 
 if [ $# -ne 1 ]; then

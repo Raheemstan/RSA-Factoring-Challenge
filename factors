@@ -3,7 +3,9 @@
 
 calculate_factor() {
     product=1
+    factors=()
     for factor in $(factor "$1" | awk '{ for(i=2; i<=NF; i++) printf "%s ", $i }'); do
+        factors+=("$factor")
         ((product *= factor))
     done
 
@@ -16,7 +18,11 @@ calculate_factor() {
         num2=$temp
     fi
 
-    echo "$num1*$num2"
+    formatted_factors=$(
+        IFS="*"
+        echo "${factors[*]}"
+    )
+    echo "$num1=$formatted_factors"
 }
 
 if [ $# -ne 1 ]; then
@@ -26,4 +32,4 @@ fi
 
 while read -r line; do
     calculate_factor "$line"
-done < "$1"
+done <"$1"
